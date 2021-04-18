@@ -45,3 +45,5 @@ data.info()
 #  19  nr.employed     41188 non-null  float64
 #  20  y               41188 non-null  object
 # dtypes: float64(5), int64(5), object(11)
+
+ters
