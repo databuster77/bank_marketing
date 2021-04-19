@@ -48,3 +48,20 @@ data.info()
 # dtypes: float64(5), int64(5), object(11)
 
 sns.histplot(data,x='age')
+data_1=data
+
+g=sns.FacetGrid(data=data_1,col='y',xlim=(0,1500))
+g.map(sns.histplot,"duration")
+
+num_vars=data.select_dtypes(exclude='object').columns
+
+
+g=sns.PairGrid(data=data_1,vars=num_vars)
+g.map_diag(sns.histplot)
+g.map_offdiag(sns.scatterplot)
+g.tight_layout()
+
+sns.pairplot(data=data_1)
+
+sns.histplot(data,x='duration')
+
