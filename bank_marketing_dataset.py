@@ -1,4 +1,5 @@
 import pandas as pd
+import seaborn as sns
 
 data = pd.read_csv('/home/hadoop/PycharmProjects/pythonProject/bank_dataset/bank-additional/bank-additional-full.csv'
                    , sep=';')
@@ -46,4 +47,4 @@ data.info()
 #  20  y               41188 non-null  object
 # dtypes: float64(5), int64(5), object(11)
 
-ters
+sns.histplot(data,x='age')
