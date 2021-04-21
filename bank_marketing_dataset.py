@@ -1,5 +1,7 @@
+import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import numpy as np
 
 data = pd.read_csv('/home/hadoop/PycharmProjects/pythonProject/bank_dataset/bank-additional/bank-additional-full.csv'
                    , sep=';')
@@ -47,13 +49,50 @@ data.info()
 #  20  y               41188 non-null  object
 # dtypes: float64(5), int64(5), object(11)
 
-sns.histplot(data,x='age')
-data_1=data
+num_vars=data.select_dtypes(exclude='object').columns
+
+str_vars=data.select_dtypes(include='object').columns
+
+
+data_1=data.copy()
+
+job_order=data.job.unique().sort(reversed=False)
+job_order=sorted(job_order,reverse=True)
+
+fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=False)
+sns.histplot(ax=axes[1,0],x=data.age)
+sns.histplot(ax=axes[0,0],x=data.duration)
+plt.show()
+
+
+fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=False)
+sns.histplot(ax=axes[1],x=data.age)
+sns.histplot(ax=axes[0],x=data.duration)
+plt.show()
+
+plt.subplot(1,2,1)
+sns.histplot(x=data.job)
+plt.xticks(range(len(job_order)),job_order,rotation=45)
+plt.title('plot_1')
+plt.subplot(1,2,2)
+sns.histplot(x=data.job)
+plt.xticks(rotation=45)
+plt.title('plot_2')
+
+
+
+
+
+sns.histplot(data,x='job')
+plt.xticks(rotation=45)
+plt.show()
+
+
 
 g=sns.FacetGrid(data=data_1,col='y',xlim=(0,1500))
 g.map(sns.histplot,"duration")
 
-num_vars=data.select_dtypes(exclude='object').columns
+
 
 
 g=sns.PairGrid(data=data_1,vars=num_vars)
