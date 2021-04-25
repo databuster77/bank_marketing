@@ -53,19 +53,43 @@ num_vars=data.select_dtypes(exclude='object').columns
 
 str_vars=data.select_dtypes(include='object').columns
 
+str_vars_list=list(str_vars)
 
-data_1=data.copy()
+str_vars_list.append('test')
+
+str_vars_ar=np.array(str_vars_list).reshape(6,2)
+
+
+
+n_r=6
+n_c=2
+fig, ax = plt.subplots(nrows=n_r,ncols=n_c,figsize=(80, 11),squeeze=False,constrained_layout=True)
+# fig.tight_layout()
+for r in range(n_r):
+    for c in range(n_c):
+        sns.countplot(ax=ax[r,c],x=str_vars_ar[r,c],data=data)
+        ax[r,c].tick_params('x', labelrotation=15)
+
+
+
 
 job_order=data.job.unique().sort(reversed=False)
 job_order=sorted(job_order,reverse=True)
 
-fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=False)
-sns.histplot(ax=axes[1,0],x=data.age)
-sns.histplot(ax=axes[0,0],x=data.duration)
+fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=False,squeeze=False)
+sns.histplot(ax=axes[0,0],x=data.age)
+sns.histplot(ax=axes[0,1],x=data.duration)
+plt.show()
+
+
+fig, (ax1,ax2) = plt.subplots(1, 2, figsize=(15, 5), sharey=False)
+sns.histplot(ax=ax1,x=data.age)
+sns.histplot(ax=ax2,x=data.duration)
 plt.show()
 
 
 fig, axes = plt.subplots(1, 2, figsize=(15, 5), sharey=False)
+
 sns.histplot(ax=axes[1],x=data.age)
 sns.histplot(ax=axes[0],x=data.duration)
 plt.show()
